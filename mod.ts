@@ -13,7 +13,7 @@ import { CommandClient, Command, Intents, CommandContext } from "./deps.ts";
 
 // Creating client/bot
 const client = new CommandClient({
-    prefix: ":"
+    prefix: "-"
 });
 
 // Listen for when the bot is connected to Discord (i.e. logged in)
@@ -24,7 +24,7 @@ client.on("ready", () => {
 // Make a class extending Command
 class PingCommand extends Command {
     name = "ping";
-    execute(ctx: CommandClient) {
+    execute(ctx: CommandContext) {
         ctx.message.reply("Pong!");
     }
 }
