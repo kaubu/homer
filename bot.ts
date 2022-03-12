@@ -28,7 +28,12 @@ class TagBot extends Client {
     ready() {
         console.log("TagBot Ready!");
         commands.forEach(command => {
-            this.interactions.commands.create(command, "363561519822143491")
+            // Add a server ID below to test within a single server:
+            // This is useful because when on more than one server, it may
+            // take longer to load the slash commands.
+            // 
+            // this.interactions.commands.create(command, "363561519822143491")
+            this.interactions.commands.create(command)
                 .then((cmd) => 
                     console.log(`Created slash command '${cmd.name}'`))
                 .catch((cmd) => 
@@ -53,10 +58,8 @@ class TagBot extends Client {
         if (!tag) {
             return i.respond({
                 type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                content: `Tag with name \`${name.replace(
-                    /`/g,
-                    "`"
-                )}\` could not be found.`,
+                content: `Tag with name \`${name.replace(/`/g, "`")}\` 
+could not be found.`,
                 // Note this is a temp option.
                 // This makes the message only visible to the User who
                 // used the command, and also can be dismissed!

@@ -3,10 +3,9 @@ import { DB } from "./deps.ts";
 export const db = new DB("./tags.sqlite");
 
 export function init() {
-    db.query(`CREATE TABLE IF NOT EXISTS 
-        tags(id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        user TEXT, guild TEXT, name TEXT, uname TEXT, 
-        content TEXT, created TEXT)`);
+    db.query(`CREATE TABLE IF NOT EXISTS tags(id INTEGER PRIMARY KEY 
+AUTOINCREMENT, user TEXT, guild TEXT, name TEXT, uname TEXT, content TEXT, 
+created TEXT)`);
 }
 
 init();
@@ -28,7 +27,8 @@ export function getTag(guild: string, name: string) {
 
 export function deleteTag(guild: string, name: string): boolean {
     if (!getTag(guild, name)) return false;
-    db.query(`DELETE FROM tags WHERE guild = ? AND uname = ?`, [guild, name.toLowerCase()]);
+    db.query(`DELETE FROM tags WHERE guild = ? AND uname = ?`, 
+        [guild, name.toLowerCase()]);
     return true;
 }
 
@@ -39,7 +39,12 @@ export function editTag(guild: string, name: string, update: string) {
     return getTag(guild, name);
 }
 
-export function addTag(guild: string, user: string, name: string, content: string) {
+export function addTag(
+        guild: string,
+        user: string, 
+        name: string, 
+        content: string
+    ) {
     if (getTag(guild, name)) return null;
     db.query(`INSERT INTO tags (user, guild, uname, name, content, created)
         VALUES (?, ?, ?, ?, ?, ?)`, [user, guild, name.toLowerCase(),
